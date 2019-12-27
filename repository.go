@@ -33,7 +33,6 @@ type Repository struct {
 // --------------------------------------------------------
 // FUNCTIONS
 // --------------------------------------------------------
-
 /**
  * Create new consignment
  *
@@ -50,4 +49,15 @@ func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, er
 	repo.consignments = updated
 
 	return consignment, nil
+}
+
+// --------------------------------------------------------
+
+/**
+ * Get all consignments
+ *
+ * @return	[]*pb.Consignment
+ */
+func (repo *Repository) GetAll() []*pb.Consignment {
+	return repo.consignments
 }

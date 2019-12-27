@@ -45,3 +45,23 @@ func (serv *Service) CreateConsignment(ctx context.Context, req *pb.Consignment)
 		Consignment: consignment,
 	}, nil
 }
+
+// --------------------------------------------------------
+
+/**
+ * Get consignment list
+ *
+ * @param	ctx *context.Context
+ * @param	req *pb.GetRequest
+ *
+ * @return	*pb.response
+ * @return	error
+ */
+func (serv *Service) GetConsignments(ctx context.Context, req *pb.GetRequest) (*pb.Response, error) {
+	// get consignments
+	consignments := serv.repo.GetAll()
+
+	return &pb.Response{
+		Consignments: consignments,
+	}, nil
+}
