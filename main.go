@@ -10,7 +10,7 @@ import (
 	"net"
 
 	// import the generated protobuf code
-	pb "github.com/athirah-yahya/shippy-consignment-service/consignment"
+	pb "github.com/athirah-yahya/shippy-consignment-service/proto/consignment"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
