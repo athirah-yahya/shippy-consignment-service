@@ -9,7 +9,7 @@ import (
 	"sync"
 
 	// import the generated protobuf code
-	pb "consignment-service/proto/consignment"
+	pb "github.com/athirah-yahya/shippy-consignment-service/proto/consignment"
 )
 
 // --------------------------------------------------------
