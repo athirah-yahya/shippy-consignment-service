@@ -45,8 +45,7 @@ func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, er
 	repo.mu.Lock()
 	defer repo.mu.Unlock()
 
-	updated := append(repo.consignments, consignment)
-	repo.consignments = updated
+	repo.consignments = append(repo.consignments, consignment)
 
 	return consignment, nil
 }

@@ -6,6 +6,7 @@ package main
 // IMPORTS
 // --------------------------------------------------------
 import (
+	"fmt"
 	"log"
 	"net"
 
@@ -20,7 +21,8 @@ import (
 // CONSTANTS
 // --------------------------------------------------------
 const (
-	port = "localhost:50051"
+	host = "0.0.0.0"
+	port = "50051"
 )
 
 // --------------------------------------------------------
@@ -29,7 +31,8 @@ const (
 // --------------------------------------------------------
 func main() {
 	// setup gRPC server
-	listener, err := net.Listen("tcp", port)
+	address := fmt.Sprintf("%s:%s", host, port)
+	listener, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatalf("Failed to listen to: %v", err)
 	}
@@ -41,7 +44,7 @@ func main() {
 	serv := &Service{repo}
 	pb.RegisterShippingServiceServer(server, serv)
 
-	// register reflection ervice on gRPC server
+	// register reflection service on gRPC server
 	reflection.Register(server)
 
 	log.Println("Running on port:", port)
