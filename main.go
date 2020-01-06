@@ -6,23 +6,11 @@ package main
 // IMPORTS
 // --------------------------------------------------------
 import (
-	"fmt"
 	"log"
-	"net"
 
 	// import the generated protobuf code
 	pb "github.com/athirah-yahya/shippy-consignment-service/proto/consignment"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
-)
-
-// --------------------------------------------------------
-// --------------------------------------------------------
-// CONSTANTS
-// --------------------------------------------------------
-const (
-	host = "0.0.0.0"
-	port = "50051"
+	"github.com/micro/go-micro"
 )
 
 // --------------------------------------------------------
@@ -30,25 +18,16 @@ const (
 // FUNCTIONS
 // --------------------------------------------------------
 func main() {
-	// setup gRPC server
-	address := fmt.Sprintf("%s:%s", host, port)
-	listener, err := net.Listen("tcp", address)
-	if err != nil {
-		log.Fatalf("Failed to listen to: %v", err)
-	}
-
-	server := grpc.NewServer()
+	// register micro-service
+	server := micro.NewService(micro.Name("shippy.consignment.service"))
+	server.Init()
 
 	// register service to gRPC server
 	repo := &Repository{}
 	serv := &Service{repo}
-	pb.RegisterShippingServiceServer(server, serv)
+	pb.RegisterShippingServiceHandler(server.Server(), serv)
 
-	// register reflection service on gRPC server
-	reflection.Register(server)
-
-	log.Println("Running on port:", port)
-	if err := server.Serve(listener); err != nil {
+	if err := server.Run(); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
 }

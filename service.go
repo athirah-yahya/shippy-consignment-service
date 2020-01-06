@@ -33,17 +33,18 @@ type Service struct {
  * @return	*pb.response
  * @return	error
  */
-func (serv *Service) CreateConsignment(ctx context.Context, req *pb.Consignment) (*pb.Response, error) {
+func (serv *Service) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
 	// save consignment
 	consignment, err := serv.repo.Create(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return &pb.Response{
-		Created:     true,
-		Consignment: consignment,
-	}, nil
+	// set response
+	res.Created = true
+	res.Consignment = consignment
+
+	return nil
 }
 
 // --------------------------------------------------------
@@ -57,11 +58,12 @@ func (serv *Service) CreateConsignment(ctx context.Context, req *pb.Consignment)
  * @return	*pb.response
  * @return	error
  */
-func (serv *Service) GetConsignments(ctx context.Context, req *pb.GetRequest) (*pb.Response, error) {
+func (serv *Service) GetConsignments(ctx context.Context, req *pb.GetRequest, res *pb.Response) error {
 	// get consignments
 	consignments := serv.repo.GetAll()
 
-	return &pb.Response{
-		Consignments: consignments,
-	}, nil
+	// set response
+	res.Consignments = consignments
+
+	return nil
 }
