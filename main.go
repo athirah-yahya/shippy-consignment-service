@@ -19,7 +19,7 @@ import (
 // --------------------------------------------------------
 func main() {
 	// register micro-service
-	server := micro.NewService(micro.Name("shippy.consignment.service"))
+	server := micro.NewService(micro.Name("shippy.service.consignment"))
 	server.Init()
 
 	// register service to gRPC server
